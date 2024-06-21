@@ -1,3 +1,2 @@
 # react
-react learning note
-test
+记录react学习笔记
