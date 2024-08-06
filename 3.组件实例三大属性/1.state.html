@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>使用jsx创建虚拟DOM</title>
+    <title>state</title>
   </head>
   <body>
     <div id="test"></div>
@@ -24,30 +24,30 @@
         constructor(props) {
           super(props);
           // 初始化状态
-          this.state = { isHot: true };
+          this.state = { isHot: true, wind: "微风" };
           //解决changeWeather中this指向问题
-          this.changeWeather = this.changeWeather.bind(this)
+          this.changeWeather = this.changeWeather.bind(this);
         }
         // render调用几次？——1+n次，1是初始化那次，n是状态更新的次数
         render() {
-          const { isHot } = this.state
+          const { isHot, wind } = this.state;
           return (
             <h1 onClick={this.changeWeather}>
-              今天天气很{isHot ? "炎热" : "凉爽"}
+              今天天气很{isHot ? "炎热" : "凉爽"}，{wind}
             </h1>
           );
         }
         // changeWeather调用几次？——点击几次调用几次
         changeWeather() {
-            //changeWeather放在哪里？————Weather的原型对象上，供实例对象使用
-            //由于changeWeather是作为onClick的回调，所以不是通过实例调用，是直接调用
-            //类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
-            
-            //状态(state)不可直接更改
-            //this.state.isHot = !this.state.isHot;    这行是错误的
-            
-            //状态必须通过setState更新，且更新是一种合并，不是替换
-            this.setState({isHot : !this.state.isHot})
+          //changeWeather放在哪里？————Weather的原型对象上，供实例对象使用
+          //由于changeWeather是作为onClick的回调，所以不是通过实例调用，是直接调用
+          //类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
+
+          //状态(state)不可直接更改
+          //this.state.isHot = !this.state.isHot;    这行是错误的
+
+          //状态必须通过setState更新，且更新是一种合并，不是替换
+          this.setState({ isHot: !this.state.isHot });
         }
       }
       ReactDOM.render(<Weather />, document.getElementById("test"));
