@@ -1,3 +1,4 @@
+<!-- 点击文字，改变天气的状态 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,12 +20,15 @@
     <script type="text/babel">
       //因为是jsx，所以此处一定是babel
       class Weather extends React.Component {
+        // 构造器调用几次？——1次
         constructor(props) {
           super(props);
+          // 初始化状态
           this.state = { isHot: true };
           //解决changeWeather中this指向问题
           this.changeWeather = this.changeWeather.bind(this)
         }
+        // render调用几次？——1+n次，1是初始化那次，n是状态更新的次数
         render() {
           const { isHot } = this.state
           return (
@@ -33,6 +37,7 @@
             </h1>
           );
         }
+        // changeWeather调用几次？——点击几次调用几次
         changeWeather() {
             //changeWeather放在哪里？————Weather的原型对象上，供实例对象使用
             //由于changeWeather是作为onClick的回调，所以不是通过实例调用，是直接调用
@@ -41,7 +46,7 @@
             //状态(state)不可直接更改
             //this.state.isHot = !this.state.isHot;    这行是错误的
             
-            //状态必须通过setState更新
+            //状态必须通过setState更新，且更新是一种合并，不是替换
             this.setState({isHot : !this.state.isHot})
         }
       }
