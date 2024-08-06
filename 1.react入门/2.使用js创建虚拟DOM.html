@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>使用jsx创建虚拟DOM</title>
+    <title>使用js创建虚拟DOM</title>
   </head>
   <body>
     <div id="test"></div>
@@ -13,18 +13,14 @@
       type="text/javascript"
       src="../js/react-dom.development.js"
     ></script>
-    <!-- 引入babel，用于将jsx转为js -->
-    <script type="text/javascript" src="../js/babel.min.js"></script>
 
-    <script type="text/babel">
-      //因为是jsx，所以此处一定是babel
+    <script type="text/javascript">
       // 1.创建虚拟DOM
-      const VDOM = //此处不能写引号
-        (
-          <h1 id="title">
-            <span>Hello,React</span>
-          </h1>
-        );
+      const VDOM = React.createElement(
+        "h1",
+        { id: "title" },
+        React.createElement("span", {}, "Hello,React")
+      ); //此处不能写引号
       // 2.渲染虚拟DOM到页面
       ReactDOM.render(VDOM, document.getElementById("test"));
     </script>

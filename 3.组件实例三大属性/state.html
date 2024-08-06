@@ -22,6 +22,8 @@
         constructor(props) {
           super(props);
           this.state = { isHot: true };
+          //解决changeWeather中this指向问题
+          this.changeWeather = this.changeWeather.bind(this)
         }
         render() {
           const { isHot } = this.state
@@ -32,7 +34,15 @@
           );
         }
         changeWeather() {
-          this.state.isHot = false;
+            //changeWeather放在哪里？————Weather的原型对象上，供实例对象使用
+            //由于changeWeather是作为onClick的回调，所以不是通过实例调用，是直接调用
+            //类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
+            
+            //状态(state)不可直接更改
+            //this.state.isHot = !this.state.isHot;    这行是错误的
+            
+            //状态必须通过setState更新
+            this.setState({isHot : !this.state.isHot})
         }
       }
       ReactDOM.render(<Weather />, document.getElementById("test"));
